@@ -52,7 +52,7 @@ define root view entity ZC_PO_Header as select from ZI_PO_HEADER
     
     @UI.lineItem: [{ position: 40 }]
     @Semantics.amount.currencyCode: 'Currency'
-    Amount,
+    FT_Amount,
     
     @UI.lineItem: [{ position: 50 }]
     Currency,
