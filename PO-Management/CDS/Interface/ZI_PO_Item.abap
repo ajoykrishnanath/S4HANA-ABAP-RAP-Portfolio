@@ -3,7 +3,7 @@
 @Metadata.ignorePropagatedAnnotations: true
 define view entity ZI_PO_ITEM as select from zpo_item
 
-association [1..1] to zpo_header as _Header
+association [1..1] to zi_po_header as _Header
 on $projection.PO_Id = _Header.po_id
 {
     key po_id as PO_Id,
