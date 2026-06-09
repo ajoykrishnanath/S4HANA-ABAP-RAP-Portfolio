@@ -32,7 +32,7 @@
 //    }
 }
 
-define root view entity ZC_PO_Header as select from ZI_PO_HEADER
+define root view entity ZAN_C_PO_Header as select from ZI_PO_HEADER
 
 //composition of target_data_source_name as _association_name
 {
