@@ -2,7 +2,7 @@
 @AccessControl.authorizationCheck: #NOT_REQUIRED
 @EndUserText.label: 'Consumption view for PO Item'
 @Metadata.ignorePropagatedAnnotations: true
-define view entity ZC_PO_Item as select from ZI_PO_ITEM
+define view entity ZAN_C_PO_Item as select from ZI_PO_ITEM
 {
     key PO_Id,
     key Item,
