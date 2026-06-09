@@ -1,10 +1,9 @@
-//@AccessControl.authorizationCheck: #NOT_REQUIRED
+@AccessControl.authorizationCheck: #NOT_REQUIRED
 @EndUserText.label: 'Interface CDS for PO Header'
 @Metadata.ignorePropagatedAnnotations: true
-define root view entity ZI_PO_HEADER as select from zpo_header
+define root view entity ZI_PO_HEADER as select from zan_po_header
 
-association [0..*] to ZI_PO_ITEM as _Item
-on $projection.PO_Id = _Item.PO_Id
+composition [0..*] of ZI_PO_ITEM as _Item
 
 association [0..1] to ZI_PO_IT_Total as _total
 on $projection.PO_Id = _total.PO_Id
