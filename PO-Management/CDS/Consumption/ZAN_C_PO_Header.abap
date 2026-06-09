@@ -32,7 +32,8 @@
 //    }
 }
 
-define root view entity ZAN_C_PO_Header as select from ZI_PO_HEADER
+define root view entity ZAN_C_PO_Header 
+as projection on ZI_PO_HEADER
 
 //composition of target_data_source_name as _association_name
 {
@@ -64,5 +65,5 @@ define root view entity ZAN_C_PO_Header as select from ZI_PO_HEADER
     Created_On,
     
     /* Association for navigation */
-    _Item
+    _Item: redirected to composition child ZAN_C_PO_Item
 }
