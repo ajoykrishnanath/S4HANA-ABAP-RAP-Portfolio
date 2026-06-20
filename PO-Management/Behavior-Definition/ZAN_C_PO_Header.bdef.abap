@@ -1,4 +1,5 @@
 projection;
+use draft;
 //strict ( 2 ); //Uncomment this line in order to enable strict mode 2. The strict mode has two variants (strict(1), strict(2)) and is prerequisite to be future proof regarding syntax and to be able to release your BO.
 
 define behavior for ZAN_C_PO_Header //alias <alias_name>
@@ -7,13 +8,16 @@ define behavior for ZAN_C_PO_Header //alias <alias_name>
   use update;
   use delete;
 
-  use association _Item { create; }
+  use association _Item { create; with draft; }
+//  use association _Item { create; }
 }
 
 define behavior for ZAN_C_PO_Item //alias <alias_name>
 {
+//  use create;
   use update;
   use delete;
 
-  use association _Header;
+  use association _Header { with draft; }
+//  use association _Header;
 }
