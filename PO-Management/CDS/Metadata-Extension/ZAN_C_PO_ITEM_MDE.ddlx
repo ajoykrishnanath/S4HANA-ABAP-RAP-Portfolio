@@ -1,0 +1,37 @@
+@Metadata.layer: #CORE
+annotate entity ZAN_C_PO_Item
+    with 
+{
+    @UI.lineItem: [{ position: 10 }]
+//    @UI.identification: [{ position: 10 }]
+    @EndUserText.label: 'PO Id'
+    PO_Id;
+    @UI.lineItem: [{ position: 20 }]
+//    @UI.identification: [{ position: 20 }]
+    @EndUserText.label: 'item No'
+    Item;
+    @UI.lineItem: [{ position: 30 }]
+//    @UI.identification: [{ position: 30 }]
+    @EndUserText.label: 'Material'
+    Material;
+    @UI.lineItem: [{ position: 40 }]
+//    @UI.identification: [{ position: 40 }]
+    @EndUserText.label: 'Quantity'
+    Quantity;
+    @UI.lineItem: [{ position: 50 }]
+//    @UI.identification: [{ position: 50 }]
+    @EndUserText.label: 'Unit'
+    Unit;
+    @UI.lineItem: [{ position: 60 }]
+//    @UI.identification: [{ position: 60 }]
+    @EndUserText.label: 'Unit Price'
+    Amount;
+    @UI.lineItem: [{ position: 80 }]
+//    @UI.identification: [{ position: 80 }]
+    @EndUserText.label: 'Currency'
+    Currency;
+    @UI.lineItem: [{ position: 70 }]
+//    @UI.identification: [{ position: 70 }]
+    @EndUserText.label: 'Final Price'
+    Total_Amount;
+}
