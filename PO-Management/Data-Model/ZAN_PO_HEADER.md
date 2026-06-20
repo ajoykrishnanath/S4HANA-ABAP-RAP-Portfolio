@@ -1,7 +1,7 @@
 | Field     | Key | Data Element | Data Type | Length | Decimal Places | Coordinate | Short Description                                      |
 |-----------|-----|--------------|-----------|--------|----------------|------------|--------------------------------------------------------|
-| PO_ID     | X   | SYSUUID_X16  | RAW       | 16     | 0              | 0          | 16 Byte UUID in 16 Bytes (Raw Format)                  |
-| VID       |     | Z_VENDOR     | CHAR      | 10     | 0              | 0          | Vendor Id                                              |
+| PO_ID     | X   | EBELN        | CHAR      | 10     | 0              | 0          | Purchasing Document Number                             |
+| VID       |     | LIFNR        | CHAR      | 10     | 0              | 0          | Account Number of Supplier                             |
 | PO_DATE   |     | DATS         | DATS      | 8      | 0              | 0          | Field of type DATS                                     |
 | STATUS    |     | Z_STAT       | CHAR      | 1      | 0              | 0          | Status                                                 |
 | NETPR     |     | NETPR        | CURR      | 11     | 2              | 0          | Net Price                                              |
