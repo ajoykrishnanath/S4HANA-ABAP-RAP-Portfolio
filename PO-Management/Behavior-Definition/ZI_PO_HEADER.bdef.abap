@@ -3,6 +3,7 @@ with draft;
 //strict ( 2 );
 
 define behavior for ZI_PO_HEADER //alias <alias_name>
+late numbering
 persistent table zan_po_header
 draft table zan_dpo_header
 lock master total etag Created_On
@@ -10,25 +11,46 @@ lock master total etag Created_On
 //authorization master ( instance )
 //etag master Created_On
 {
+    mapping for zan_po_header{
+    PO_Id = po_id;
+    VendorId = vid;
+    PO_Date = po_date;
+    FT_Amount = netpr;
+    Currency = waers;
+    Status = status;
+    Created_By = syuname;
+    Created_On = timestamp;
+    }
   create;
   update;
   delete;
   association _Item { create; with draft; }
-//  association _Item { create; }
   field ( readonly ) PO_Id;
+
+//  determination GeneratePOnum on save { create; }
 }
 
 define behavior for ZI_PO_ITEM //alias <alias_name>
+late numbering
 persistent table zan_po_item
 draft table zan_dpo_item
 lock dependent by _Header
 //authorization dependent by _Header
 //etag master <field_name>
 {
-//  create;
+    mapping for zan_po_item{
+    PO_Id = po_id;
+    Item = ebelp;
+    Material = matnr;
+    Quantity = menge;
+    Unit = meins;
+    Amount = netpr;
+    Total_Amount = netwr;
+    Currency = waers;
+    }
   update;
   delete;
-  field ( readonly ) PO_Id, Item;
+
+  field ( readonly ) PO_Id;
   association _Header { with draft; }
-//  association _Header;
 }
