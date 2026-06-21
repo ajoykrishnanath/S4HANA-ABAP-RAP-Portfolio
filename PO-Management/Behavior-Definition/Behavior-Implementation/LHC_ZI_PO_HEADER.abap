@@ -5,6 +5,10 @@ CLASS lhc_zi_po_header DEFINITION INHERITING FROM cl_abap_behavior_handler.
     METHODS get_instance_features FOR INSTANCE FEATURES
       IMPORTING keys REQUEST requested_features FOR zi_po_header RESULT result.
 
+    METHODS CalculateTotal
+      FOR DETERMINE ON MODIFY
+      IMPORTING keys FOR zi_po_item~CalculateTotal.
+
 ENDCLASS.
 
 CLASS lsc_zi_po_header DEFINITION
@@ -27,6 +31,27 @@ ENDCLASS.
 CLASS lhc_zi_po_header IMPLEMENTATION.
 
   METHOD get_instance_features.
+  ENDMETHOD.
+
+  METHOD calculatetotal.
+
+    READ ENTITIES OF zi_po_header IN LOCAL MODE
+    ENTITY zi_po_item
+    ALL FIELDS
+    WITH CORRESPONDING #( keys )
+    RESULT DATA(lt_item).
+
+    MODIFY ENTITIES OF zi_po_header IN LOCAL MODE
+      ENTITY zi_po_item
+      UPDATE FIELDS ( Total_Amount )
+      WITH VALUE #(
+        FOR ls_item IN lt_item
+        (
+          %tky         = ls_item-%tky
+          Total_Amount = ls_item-Quantity * ls_item-Amount
+        )
+      ).
+
   ENDMETHOD.
 
 ENDCLASS.
