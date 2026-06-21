@@ -11,15 +11,16 @@ lock master total etag Created_On
 //authorization master ( instance )
 //etag master Created_On
 {
-    mapping for zan_po_header{
-    PO_Id = po_id;
-    VendorId = vid;
-    PO_Date = po_date;
-    FT_Amount = netpr;
-    Currency = waers;
-    Status = status;
-    Created_By = syuname;
-    Created_On = timestamp;
+  mapping for zan_po_header
+    {
+      PO_Id      = po_id;
+      VendorId   = vid;
+      PO_Date    = po_date;
+      FT_Amount  = netpr;
+      Currency   = waers;
+      Status     = status;
+      Created_By = syuname;
+      Created_On = timestamp;
     }
   create;
   update;
@@ -27,7 +28,7 @@ lock master total etag Created_On
   association _Item { create; with draft; }
   field ( readonly ) PO_Id;
 
-//  determination GeneratePOnum on save { create; }
+  //  determination GeneratePOnum on save { create; }
 }
 
 define behavior for ZI_PO_ITEM //alias <alias_name>
@@ -38,19 +39,32 @@ lock dependent by _Header
 //authorization dependent by _Header
 //etag master <field_name>
 {
-    mapping for zan_po_item{
-    PO_Id = po_id;
-    Item = ebelp;
-    Material = matnr;
-    Quantity = menge;
-    Unit = meins;
-    Amount = netpr;
-    Total_Amount = netwr;
-    Currency = waers;
+  mapping for zan_po_item
+    {
+      PO_Id        = po_id;
+      Item         = ebelp;
+      Material     = matnr;
+      Quantity     = menge;
+      Unit         = meins;
+      Amount       = netpr;
+      Total_Amount = netwr;
+      Currency     = waers;
     }
   update;
   delete;
 
-  field ( readonly ) PO_Id;
+  determination CalculateTotal on modify
+  {
+    create;
+    field Quantity, Amount;
+  }
+
+//  side effects
+//  {
+//    field Quantity affects field Total_Amount;
+//    field Amount affects field Total_Amount;
+//  }
+
+  field ( readonly ) PO_Id, Total_Amount;
   association _Header { with draft; }
 }
