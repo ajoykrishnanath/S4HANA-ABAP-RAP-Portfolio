@@ -61,14 +61,3 @@ Screenshots of table structure, CDS, and UI (where applicable) are available ins
 * GitHub (for documentation & versioning)
 
 ---
-
-## 📈 Learning Roadmap
-
-* [x] Data Modelling (Tables)
-* [ ] CDS Views (Interface + Consumption)
-* [ ] OData (SEGW)
-* [ ] RAP Implementation
-* [ ] Fiori Elements
-* [ ] Enhancements (Email / PDF)
-
----
