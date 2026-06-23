@@ -26,9 +26,12 @@ lock master total etag Created_On
   update;
   delete;
   association _Item { create; with draft; }
-  field ( readonly ) PO_Id;
+  field ( readonly ) PO_Id, FT_Amount;
 
-  //  determination GeneratePOnum on save { create; }
+  validation ValidateVendor on save     //Validate VendorId from LFA1
+  {
+    field VendorId;
+  }
 }
 
 define behavior for ZI_PO_ITEM //alias <alias_name>
@@ -59,11 +62,10 @@ lock dependent by _Header
     field Quantity, Amount;
   }
 
-//  side effects
-//  {
-//    field Quantity affects field Total_Amount;
-//    field Amount affects field Total_Amount;
-//  }
+  validation ValidateItem on save
+  {
+    field Material, Quantity, Unit, Amount, Currency;
+  }
 
   field ( readonly ) PO_Id, Total_Amount;
   association _Header { with draft; }
