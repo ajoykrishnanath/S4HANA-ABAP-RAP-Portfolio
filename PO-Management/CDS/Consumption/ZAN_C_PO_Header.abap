@@ -1,6 +1,7 @@
 @AccessControl.authorizationCheck: #NOT_REQUIRED
 @EndUserText.label: 'Consumption view for PO header'
 //@Metadata.ignorePropagatedAnnotations: true
+@Search.searchable: true
 @Metadata.allowExtensions: true
 
 define root view entity ZAN_C_PO_Header
