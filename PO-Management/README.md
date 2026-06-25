@@ -1,22 +1,32 @@
+## Repository Structure
+
+```text
 S4HANA-ABAP-RAP-Portfolio
 │
-├── README.md              <- Portfolio Home Page
+├── README.md
 │
 ├── PO-Management
-│   ├── README.md          <- Detailed Project README
+│   ├── README.md
+│   │
 │   ├── Screenshots
 │   │   ├── PO_Home.png
 │   │   ├── PO_Detail.png
 │   │   └── PO_Creation_Draft.png
 │   │
-|   ├── Data-Model
-|        ├── Draft-Table
-|        ├── Persistent-Table
+│   ├── Data-Model
+│   │   ├── Draft-Table
+│   │   └── Persistent-Table
+│   │
 │   ├── CDS
-|        ├── Consumtion
-|        ├── Interface
-|        ├── Metadata-Extension
-│   ├── Behavior_Definitions
-|        ├──Behavior-Implementation
+│   │   ├── Consumption
+│   │   ├── Interface
+│   │   └── Metadata-Extension
+│   │
+│   ├── Behavior-Definitions
+│   │
+│   ├── Behavior-Implementation
+│   │
 │   ├── Service-Definition
-|   └── ServiceBinding
+│   │
+│   └── Service-Binding
+```
