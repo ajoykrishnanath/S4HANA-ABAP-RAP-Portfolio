@@ -6,7 +6,6 @@ late numbering
 persistent table zan_po_header
 draft table zan_dpo_header
 lock master total etag Created_On
-
 {
   mapping for zan_po_header
     {
@@ -21,15 +20,26 @@ lock master total etag Created_On
     }
   create;
   update ( features : instance );
-  delete( features : instance );
-  association _Item { create( features : instance ); with draft; }
-  field ( readonly ) PO_Id, FT_Amount;
+  delete ( features : instance );
+  association _Item { create ( features : instance ); with draft; }
+  field ( readonly ) PO_Id, Status, FT_Amount, Created_On;
+  field ( mandatory ) VendorId;
 
   action ( features : instance ) SubmitPO result [1] $self;
 
+  determination SetDefaultValues on modify
+  {
+    create;
+  }
+
   validation ValidateVendor on save     //Validate VendorId from LFA1
   {
-    field VendorId;
+    create; update;
+  }
+
+  validation ValidatePODate on save
+  {
+    field PO_Date;
   }
 }
 
@@ -50,8 +60,8 @@ lock dependent by _Header
       Total_Amount = netwr;
       Currency     = waers;
     }
-  update( features : instance );
-  delete( features : instance );
+  update ( features : instance );
+  delete ( features : instance );
 
   determination CalculateTotal on modify
   {
