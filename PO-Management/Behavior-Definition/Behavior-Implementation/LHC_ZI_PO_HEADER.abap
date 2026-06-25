@@ -9,6 +9,14 @@ CLASS lhc_zi_po_header DEFINITION INHERITING FROM cl_abap_behavior_handler.
       FOR VALIDATE ON SAVE
       IMPORTING keys FOR zi_po_header~ValidateVendor.
 
+    METHODS ValidatePODate
+      FOR VALIDATE ON SAVE
+      IMPORTING keys FOR zi_po_header~ValidatePODate.
+
+    METHODS SetDefaultValues
+      FOR DETERMINE ON MODIFY
+      IMPORTING keys FOR zi_po_header~SetDefaultValues.
+
     METHODS SubmitPO
       FOR MODIFY
       IMPORTING keys   FOR ACTION zi_po_header~SubmitPO
@@ -67,6 +75,23 @@ CLASS lhc_zi_po_header IMPLEMENTATION.
 
     LOOP AT lt_header ASSIGNING FIELD-SYMBOL(<ls_header>).
 
+      IF <ls_header>-VendorId IS INITIAL.
+
+        APPEND VALUE #(
+          %tky = <ls_header>-%tky
+        ) TO failed-zi_po_header.
+
+        APPEND VALUE #(
+          %tky = <ls_header>-%tky
+          %msg = new_message_with_text(
+                   severity = if_abap_behv_message=>severity-error
+                   text     = 'Vendor is mandatory'
+                 )
+        ) TO reported-zi_po_header.
+
+        CONTINUE.
+
+      ENDIF.
       SELECT SINGLE lifnr
         FROM lfa1
         WHERE lifnr = @<ls_header>-VendorId
@@ -90,6 +115,53 @@ CLASS lhc_zi_po_header IMPLEMENTATION.
 
     ENDLOOP.
 
+  ENDMETHOD.
+
+  METHOD ValidatePODate.
+
+    READ ENTITIES OF zi_po_header IN LOCAL MODE
+      ENTITY zi_po_header
+      FIELDS ( PO_Date )
+      WITH CORRESPONDING #( keys )
+      RESULT DATA(lt_header).
+
+    LOOP AT lt_header ASSIGNING FIELD-SYMBOL(<ls_header>).
+
+      IF <ls_header>-PO_Date >
+         cl_abap_context_info=>get_system_date( ).
+
+        APPEND VALUE #(
+          %tky = <ls_header>-%tky
+        ) TO failed-zi_po_header.
+
+        APPEND VALUE #(
+          %tky = <ls_header>-%tky
+          %msg = new_message_with_text(
+                   severity = if_abap_behv_message=>severity-error
+                   text     = 'PO Date cannot be in the future'
+                 )
+        ) TO reported-zi_po_header.
+
+      ENDIF.
+
+    ENDLOOP.
+
+  ENDMETHOD.
+
+  METHOD setdefaultvalues.
+    GET TIME STAMP FIELD DATA(lv_timestamp).
+
+    MODIFY ENTITIES OF zi_po_header IN LOCAL MODE
+      ENTITY zi_po_header
+      UPDATE FIELDS ( Status Created_On )
+      WITH VALUE #(
+        FOR key IN keys
+        (
+          %tky       = key-%tky
+          Status     = 'N'
+          Created_On = lv_timestamp
+        )
+      ).
   ENDMETHOD.
 
   METHOD submitpo.
